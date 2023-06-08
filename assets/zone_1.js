@@ -237,7 +237,7 @@ export class zone_1 extends Phaser.Scene {
         this.eau = this.physics.add.group();
 
         
-        this.eau1 = this.eau.create(4000,2800,  "eau").setScale(0.07);
+        this.eau1 = this.eau.create(4000,2800,  "eau").setScale(0.2);
         this.physics.add.overlap(this.player, this.eau, this.collectEau, null, this);
         
         this.chat = this.physics.add.group();
