@@ -1,6 +1,7 @@
 import {zone_1} from "./assets/zone_1.js";
 import {sceneDebut} from "./assets/debut.js";
 import { GameOver } from "./assets/game_over.js";
+import { fin } from "./assets/fin.js";
 
 
 var config = 
@@ -22,7 +23,7 @@ var config =
         }
     },
     
-    scene:[sceneDebut,zone_1, GameOver]
+    scene:[sceneDebut,zone_1, GameOver,fin]
 
 
 };

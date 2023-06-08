@@ -30,7 +30,8 @@ export class zone_1 extends Phaser.Scene {
         this.load.image('potion', 'assets/potion.png');
         this.load.image('potionMelanger', 'assets/potionMelanger.png');
         this.load.image('fond', 'assets/fond.png');
-        
+        this.load.image('chat', 'assets/chat.png'); 
+        this.load.image('fond', 'assets/fond.png'); 
        
 
 
@@ -63,6 +64,7 @@ export class zone_1 extends Phaser.Scene {
     score3 = 0;
     score4 = 0;
     fond;
+    chat;
 
 
 
@@ -84,7 +86,7 @@ export class zone_1 extends Phaser.Scene {
             "background",
             this.tileset
         );
-    
+        this.add.image(0,0 ,"fond").setOrigin(0,0)
         this.calque_plateforme = this.carteDuNiveau.createLayer(
             "plateform",
             this.tileset
@@ -161,6 +163,23 @@ export class zone_1 extends Phaser.Scene {
         this.planteToxique3.setBounce(0.2);
         this.planteToxique3.setCollideWorldBounds(true);
 
+        this.planteToxique4= this.ennemis.create(3600, 1300, 'planteToxique').setScale(0.15);
+        this.planteToxique4.setBounce(0.2);
+        this.planteToxique4.setCollideWorldBounds(true);
+
+        this.planteToxique4= this.ennemis.create(6050, 60, 'planteToxique').setScale(0.15);
+        this.planteToxique4.setBounce(0.2);
+        this.planteToxique4.setCollideWorldBounds(true); 
+
+        
+                                                            
+
+        
+
+       
+
+        
+
 
     // collectible  
 
@@ -174,20 +193,22 @@ export class zone_1 extends Phaser.Scene {
 
 
 
-        this.scoreText2 = this.add.text(290,340,'0',{fontSize:'32px',fill:'#000'});
+        this.scoreText2 = this.add.text(295,340,'0',{fontSize:'32px',fill:'#000'});
         this.scoreText2.setScrollFactor(0);
         this.scoreText2.setDepth(15);
         this.scoreText2.setVisible(false);
 
-        this.scoreText3 = this.add.text(290,380,'0',{fontSize:'32px',fill:'#000'});
+        this.scoreText3 = this.add.text(295,385,'0',{fontSize:'32px',fill:'#000'});
         this.scoreText3.setScrollFactor(0);
         this.scoreText3.setDepth(15);
         this.scoreText3.setVisible(false);
 
-        this.scoreText4 = this.add.text(290,420,'0',{fontSize:'32px',fill:'#000'});
+        this.scoreText4 = this.add.text(290,425,'0',{fontSize:'32px',fill:'#000'});
         this.scoreText4.setScrollFactor(0);
         this.scoreText4.setDepth(15);
         this.scoreText4.setVisible(false);
+
+        
 
         //herbe
         this.herbe = this.physics.add.group();
@@ -202,23 +223,27 @@ export class zone_1 extends Phaser.Scene {
 
         this.fleur1 = this.fleur.create(6900,1700, "fleur").setScale(0.07);
         this.fleur2 = this.fleur.create(10500,1800, "fleur").setScale(0.07);
-        this.fleur3 = this.fleur.create(4080,80, "fleur").setScale(0.07);
+        this.fleur3 = this.fleur.create(4080,80,  "fleur").setScale(0.07);
         this.physics.add.overlap(this.player, this.fleur, this.collectFleur, null, this);
 
         //baie
         this.baie = this.physics.add.group();
 
         this.baie1 = this.baie.create(1700,80, "baie").setScale(0.07);
-        this.baie2 = this.baie.create(11968,900, "baie").setScale(0.07);
+        this.baie2 = this.baie.create(11968,900,  "baie").setScale(0.07);
         this.physics.add.overlap(this.player, this.baie, this.collectBaie, null, this);
 
         //eau
         this.eau = this.physics.add.group();
 
         
-        this.eau1 = this.eau.create(4000,2800, "eau").setScale(0.07);
+        this.eau1 = this.eau.create(4000,2800,  "eau").setScale(0.07);
         this.physics.add.overlap(this.player, this.eau, this.collectEau, null, this);
         
+        this.chat = this.physics.add.group();
+        this.chat1 = this.chat.create(11900,2800, "chat").setScale(0.07);
+        this.physics.add.overlap(this.player, this.chat, this.collecChat, null, this);
+
 
         //menuthis.eau.create(4000,2800, "eau").setScale(0.07);
         this.menu = this.add.image(500, 400, "menu").setScale(0.7);
@@ -265,6 +290,7 @@ export class zone_1 extends Phaser.Scene {
         this.physics.add.collider(this.player, this.calque_plateforme);
 
         this.physics.add.collider(this.herbe, this.calque_plateforme);
+        this.physics.add.collider(this.chat, this.calque_plateforme);
         this.physics.add.collider(this.fleur, this.calque_plateforme);
         this.physics.add.collider(this.baie, this.calque_plateforme);
         this.physics.add.collider(this.eau, this.calque_plateforme);
@@ -383,6 +409,7 @@ export class zone_1 extends Phaser.Scene {
             this.boutonPotion.setVisible(false);
             this.laPotion.setVisible(false);
             this.laPotionMelanger.setVisible(false);
+            
         }
         else {
             this.menu.setVisible(true)
@@ -390,7 +417,7 @@ export class zone_1 extends Phaser.Scene {
             this.boutonPotion.setVisible(true);
             this.laPotion.setVisible(true);
             this.laPotionMelanger.setVisible(false);
-        
+           
         }
     
         if (this.menuOpen === false){
@@ -401,6 +428,7 @@ export class zone_1 extends Phaser.Scene {
             this.scoreText4.setVisible(false)
             this.laPotion.setVisible(false);
             this.laPotionMelanger.setVisible(false);
+           
         }
         else {
             this.menu.setVisible(true)
@@ -409,17 +437,27 @@ export class zone_1 extends Phaser.Scene {
             this.scoreText3.setVisible(true)
             this.scoreText4.setVisible(true)
             
+            
         }
         
 
         if (this.potion === true){
             this.laPotionMelanger.setVisible(true);
             this.laPotion.setVisible(false);
+            
         }
         if (this.menuOpen === false){
             this.laPotionMelanger.setVisible(false);
+            
         }
        
+        if (this.physics.overlap(this.player, this.chat)) {
+            console.log("klkjdlkgj");
+            this.scene.start('fin')
+            this.collectChat();
+            
+        }
+        
         if (this.ennemy1) {
             if (this.ennemy1.x <1089) {
               this.ennemy1.setVelocityX(400);
@@ -516,7 +554,7 @@ export class zone_1 extends Phaser.Scene {
               this.ennemy9.setVelocityX(450);
               this.ennemy9.anims.play('ennemi_right', true);
             } 
-            else if (this.ennemy9.x > 11900) {
+            else if (this.ennemy9.x > 12800) {
               this.ennemy9.setVelocityX(-450);
               this.ennemy9.anims.play('ennemi_left', true);
             }
@@ -573,6 +611,13 @@ export class zone_1 extends Phaser.Scene {
         this.scoreText4.setText(this.score2);
         }
         
+
+    collectChat(){ 
+        if(this.laPotionMelanger == true){
+        console.log("fin");
+        this.scene.start('fin')
+        
+        }} 
 
 
     leClick(){
